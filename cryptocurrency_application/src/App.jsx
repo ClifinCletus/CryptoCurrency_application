@@ -2,7 +2,7 @@ import './App.css'
 import React from 'react';
 import {Routes, Route ,Link} from 'react-router-dom';
 import {Layout,Typography, Space} from 'antd';
-import { Navbar,Homepage,Exchanges,Cryptocurrencies,Cryptodetails,News} from './components';
+import { Navbar,Homepage,Cryptocurrencies,Cryptodetails,News} from './components';
 
 function App() {
 
@@ -18,11 +18,19 @@ function App() {
                 <Route path="/" element={<Homepage/>} />
                 <Route path="/cryptocurrencies" element={<Cryptocurrencies/>} />
                 <Route path="/crypto/:coinId" element={<Cryptodetails/>} />
-                <Route path="/exchanges" element={<Exchanges/>} />
                 <Route path="/news" element={<News/>} />
               </Routes> 
             </div>
           </Layout>
+          <div className='footer' >
+            <Typography.Title level={5} style={{color:'white',textAlign:'center'}}>
+              Cryptoverse <br/> All rights reserved
+            </Typography.Title>
+            <Space> {/*like giving some basic texts at end(like li) for proper navigation*/ }
+              <Link to="/" >Home</Link>
+              <Link to="/news">News</Link>
+            </Space>
+          </div>
           </div>
          
       
