@@ -1,60 +1,141 @@
-import React from 'react'
-import {useState,useEffect} from 'react';
-import {Button, Menu, Typography, Avatar} from 'antd';
-import {Link} from 'react-router-dom';
-import {HomeOutlined, MoneyCollectOutlined, BulbOutlined, FundOutlined, MenuOutlined} from '@ant-design/icons';
+import React, { useState, useEffect } from 'react';
+import { Button, Menu, Typography, Avatar } from 'antd';
+import { HomeOutlined, BulbOutlined, FundOutlined, MenuOutlined } from '@ant-design/icons';
 
 const Navbar = () => {
+  const [activeMenu, setActiveMenu] = useState(true);
+  const [screenSize, setScreenSize] = useState(window.innerWidth);
 
-  const [activeMenu, setActiveMenu] = useState(true); //used to toggle the menu visibility
-  const [screenSize, setScreenSize] = useState(null); //used to track the screen size for responsive design and hence toggle the menu visibility based on screen size(navbar full visible on large screens, and a hamburger menu on small screens)
-
-  useEffect(() => { //function to handle the screen size changes
-    const handleResize = () => setScreenSize(window.innerWidth); //updates the screen size when the window is resized (window.innerWidth gives the width of the viewport in pixels)
-    window.addEventListener('resize', handleResize); //adds an event listener to the window to listen for resize events
-    handleResize(); //initially sets the screen size when the component mounts
-    return () => window.removeEventListener('resize', handleResize); //cleans up the event listener when the component unmounts
+  useEffect(() => {
+    const handleResize = () => setScreenSize(window.innerWidth);
+    window.addEventListener('resize', handleResize);
+    handleResize();
+    return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  useEffect(() => { //function to handle the screen size changes
-    if (screenSize < 768) { //if the screen size is less than 768 pixels, hide the menu (for mobile devices)
+  useEffect(() => {
+    if (screenSize < 800) {
       setActiveMenu(false);
+    } else {
+      setActiveMenu(true);
     }
-    else {
-      setActiveMenu(true); //otherwise, show the menu
-    }
-  }, [screenSize]); //this effect runs whenever the screen size changes
-
+  }, [screenSize]);
 
   return (
-    <div className="nav-container">
-      <div className="logo-container"> {/*Avatar is a component that displays an image or icon like the image or icon would be inside a round profile like icon normally seen in profiles*/}
-        <Avatar src="https://i.ibb.co/Z11pcGG/cryptocurrency.png" size="large"/>
-        <Typography.Title level={2} className="logo">{/* Typography is a component that displays text, it can be used to create headings, paragraphs, and other text elements */}
-            <Link to="/">Cryptoverse</Link>
-        </Typography.Title>
-
-        {/*Here what done is, if the big screen(activeMenu is true, the fully show the menu, else showa this button and in the button click then shows the menu) */}
-        <Button className="menu-control-container" onClick={() => setActiveMenu(!activeMenu)}> {/* this button would trigger if to show the menu(navbar) or not, it would toggle on click to properly show and unshoow the menu */}
-          <MenuOutlined /> {/* MenuOutlined is an icon from Ant Design that represents a menu icon */}  
-        </Button>
+    <div style={{ 
+      background: 'linear-gradient(180deg, rgba(0, 21, 41, 0.95) 0%, rgba(0, 21, 41, 0.8) 100%)',
+      backdropFilter: 'blur(20px)',
+      borderRight: '1px solid rgba(255, 255, 255, 0.1)',
+      position: screenSize <= 800 ? 'fixed' : 'relative',
+      top: screenSize <= 800 ? 0 : 'auto',
+      left: 0,
+      width: screenSize <= 800 ? '100%' : '250px',
+      zIndex: 1000,
+      minHeight: screenSize <= 800 ? '60px' : '100vh'
+    }}>
+      <div style={{
+        background: 'linear-gradient(135deg, #001529 0%, #0d2142 100%)',
+        display: 'flex',
+        padding: '25px',
+        alignItems: 'center',
+        width: '100%',
+        borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+        boxShadow: '0 4px 20px rgba(0,0,0,0.2)',
+        justifyContent: screenSize <= 800 ? 'space-between' : 'flex-start'
+      }}>
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <Avatar src="https://i.ibb.co/Z11pcGG/cryptocurrency.png" size="large"/>
+          <Typography.Title 
+            level={2} 
+            style={{
+              margin: '0 0 0 15px',
+              fontWeight: 700,
+              fontSize: '1.2rem',
+              color: 'white'
+            }}
+          >
+            <a href="/" style={{ 
+              color: 'white', 
+              textDecoration: 'none',
+              background: 'linear-gradient(135deg, #667eea 0%, #764ba2 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              fontWeight: 800
+            }}>
+              Cryptoverse
+            </a>
+          </Typography.Title>
         </div>
-
-        {activeMenu && ( //if activeMenu is true, show the menu (navbar menu)}
-        <Menu theme="dark"> {/* Menu is a component that displays a list of items, it can be used to create a navigation bar or a sidebar */}
-          <Menu.Item icon={<HomeOutlined />} key="home">    
-            <Link to="/">Home</Link>  
-           </Menu.Item>   
-            <Menu.Item icon={<FundOutlined />} key="cryptocurrencies">
-              <Link to="/cryptocurrencies">Cryptocurrencies</Link>
-            </Menu.Item>
-            <Menu.Item icon={<BulbOutlined />} key="news">
-            <Link to="/news">News</Link>
-            </Menu.Item>
-        </Menu>
+        
+        {/* Only show menu button on mobile screens */}
+        {screenSize <= 800 && (
+          <Button 
+            onClick={() => setActiveMenu(!activeMenu)}
+            style={{
+              fontSize: '1.2rem',
+              background: 'rgba(255, 255, 255, 0.15)',
+              backdropFilter: 'blur(10px)',
+              border: '1px solid rgba(255, 255, 255, 0.18)',
+              borderRadius: '12px',
+              padding: '8px',
+              color: 'white'
+            }}
+            type="text"
+          >
+            <MenuOutlined />
+          </Button>
         )}
-     </div>
-  )
-}
+      </div>
+      
+      {/* Menu with conditional visibility */}
+      <Menu 
+        theme="dark" 
+        style={{
+          background: 'transparent',
+          border: 'none',
+          maxHeight: screenSize <= 800 ? (activeMenu ? '300px' : '0px') : 'none',
+          overflow: screenSize <= 800 ? 'hidden' : 'visible',
+          transition: 'max-height 0.3s ease'
+        }}
+        mode="vertical"
+      >
+        <Menu.Item 
+          icon={<HomeOutlined />} 
+          key="home"
+          style={{
+            padding: '15px 25px',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            color: 'white'
+          }}
+        >    
+          <a href="/" style={{ color: 'white', textDecoration: 'none' }}>Home</a>  
+        </Menu.Item>  
+        <Menu.Item 
+          icon={<FundOutlined />} 
+          key="cryptocurrencies"
+          style={{
+            padding: '15px 25px',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            color: 'white'
+          }}
+        >
+          <a href="/cryptocurrencies" style={{ color: 'white', textDecoration: 'none' }}>Cryptocurrencies</a>
+        </Menu.Item>
+        <Menu.Item 
+          icon={<BulbOutlined />} 
+          key="news"
+          style={{
+            padding: '15px 25px',
+            borderBottom: '1px solid rgba(255, 255, 255, 0.1)',
+            color: 'white'
+          }}
+        >
+          <a href="/news" style={{ color: 'white', textDecoration: 'none' }}>News</a>
+        </Menu.Item>
+      </Menu>
+    </div>
+  );
+};
 
-export default Navbar
+export default Navbar;

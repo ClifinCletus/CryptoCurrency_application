@@ -21,7 +21,6 @@
 
 body {
     font-family: 'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: var(--bgPrimary);
     min-height: 100vh;
 }
 
@@ -33,27 +32,27 @@ a:hover{
 
 .app{
     display: flex;
-    overflow: hidden;
     min-height: 100vh;
-    background: var(--bgPrimary);
 }
 
 .navbar{
-    flex: 0.2;
-    background: rgba(0, 21, 41, 0.95);
+    flex: 0 0 250px;
+    background: linear-gradient(180deg, rgba(0, 21, 41, 0.95) 0%, rgba(0, 21, 41, 0.8) 100%);
     backdrop-filter: blur(20px);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 4px 0 20px rgba(0,0,0,0.1);
+    position: relative;
+    z-index: 100;
 }
 
 .main{
-    flex: 0.8;
-    width: 100%;
+    flex: 1;
     background: rgba(255, 255, 255, 0.05);
     backdrop-filter: blur(20px);
     border-radius: 20px 0 0 20px;
     margin: 10px 10px 10px 0;
     overflow-y: auto;
+    position: relative;
 }
 
 .routes{
@@ -62,14 +61,12 @@ a:hover{
 }
 
 .nav-container{
-    position: fixed;
-    left: 0;
-    margin: 10px;
     height: 100vh;
-    margin: 0px;
     background: linear-gradient(180deg, rgba(0, 21, 41, 0.95) 0%, rgba(0, 21, 41, 0.8) 100%);
     backdrop-filter: blur(20px);
     border-right: 1px solid rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
 }
 
 .logo-container{
@@ -80,6 +77,8 @@ a:hover{
     width: 100%;
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    position: relative;
+    z-index: 101;
 }
 
 .logo{
@@ -95,20 +94,20 @@ a:hover{
     -webkit-text-fill-color: transparent;
     background-clip: text;
     font-weight: 800;
+    text-decoration: none;
 }
 
 .menu-control-container{
-    display: none !important;
-    position: absolute !important;
-    right: 10px !important;
-    top: 25px !important;
-    font-size: 1.2rem !important;
-    background: var(--glass-bg) !important;
-    backdrop-filter: blur(10px) !important;
-    border: 1px solid var(--glass-border) !important;
-    border-radius: 12px !important;
-    padding: 8px !important;
-    transition: all 0.3s ease !important;
+    display: none;
+    font-size: 1.2rem;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 8px 12px;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    color:white;
 }
 
 .loader{
@@ -118,25 +117,6 @@ a:hover{
     align-items: center;
     background: radial-gradient(circle, rgba(102, 126, 234, 0.1) 0%, transparent 50%);
 }
-
-@media screen and (max-width:1300px){
-    .main{
-        margin-left: 50px;
-    }
-}
-
-@media screen and (max-width:1170px){
-    .main{
-        margin-left: 50px;
-    }
-}
-
-@media screen and (max-width:1000px){
-    .main{
-        margin-left: 100px;
-    }
-}
-
 
 .coin-detail-container{
     margin: 30px;
@@ -409,38 +389,6 @@ a:hover{
     transform: translateY(-2px);
 }
 
-@media screen and (max-width:1000px){
-    .stats-container{
-        flex-direction: column;
-        gap: 30px;
-    }
-    .coin-desc-link{
-        flex-direction: column;
-        gap: 30px;
-    }
-    .stats-container h2{
-        margin-top: 0px;
-    }
-}
-
-@media screen and (max-width: 500px){
-    .coin-links{
-        padding: 20px;
-    }
-    .coin-detail-container{
-        margin: 15px;
-    }
-    .coin-heading-container .coin-name {
-        font-size: 2rem;
-    }
-}
-
-@media screen and (max-width: 500px){
-    .heading{
-        margin-top: 20px;
-    }
-}
-
 .select-news{
     width: 180px;
     border-radius: 12px !important;
@@ -572,7 +520,7 @@ a:hover{
 
 .show-more{
     margin-top: 0px !important;
-    background: var(--bgSecondary) !important;
+    background: var(--gradient-primary) !important;
     color: white !important;
     border: none !important;
     padding: 12px 24px !important;
@@ -676,26 +624,25 @@ a:hover{
     border-top: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-/* Scrollbar Styling */
+/* Plain Scrollbar */
 ::-webkit-scrollbar {
     width: 8px;
 }
 
 ::-webkit-scrollbar-track {
-    background: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
+    background: #f1f1f1;
 }
 
 ::-webkit-scrollbar-thumb {
-    background: var(--gradient-primary);
-    border-radius: 10px;
+    background: #888;
+    border-radius: 4px;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-    background: var(--gradient-secondary);
+    background: #555;
 }
 
-/* Additional Animation Classes */
+/* Animation Classes */
 @keyframes fadeInUp {
     from {
         opacity: 0;
@@ -721,112 +668,109 @@ a:hover{
 .crypto-card:nth-child(3) { animation-delay: 0.3s; }
 .crypto-card:nth-child(4) { animation-delay: 0.4s; }
 
-@media screen and (max-width:800px){
-    .app{
-        flex-direction: column;
-        overflow: hidden;
+/* Mobile Responsive Design */
+@media screen and (max-width: 1300px) {
+    .main {
+        margin: 10px 10px 10px 0;
     }
-
-    .navbar{
-        flex: 1;
-        /* Add these properties to ensure navbar content is visible */
-        position: relative;
-        z-index: 1000;
-        height: auto;
-        min-height: 60px;
-    }
-
-    .main{
-        flex: 1;
-        margin-top: 90px;
-        margin-left: 0px;
-        margin-right: 10px;
-        border-radius: 20px 20px 0 0;
-    }
-
-    .nav-container{
-        height: auto; 
-        min-height: 60px; /* Add minimum height */
-        position: fixed;
-        width: 100%;
-        z-index: 100;
-        background: var(--glass-bg);
-        backdrop-filter: blur(20px);
-        border-bottom: 1px solid var(--glass-border);
-        /* Add these for proper content display */
-        display: flex;
-        flex-direction: column;
-    }
-
-    .logo-container{
-        /* Ensure logo container is visible */
-        position: relative;
-        z-index: 101;
-        min-height: 60px;
-        display: flex;
-        align-items: center;
-        justify-content: space-between; /* Space between logo and menu button */
-        padding: 15px 25px;
-    }
-  
-    .menu-control-container{
-        display: block !important;
-        position: static !important; /* Changed from absolute */
-        right: auto !important;
-        top: auto !important;
-        font-size: 1.2rem !important;
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(10px) !important;
-        border: 1px solid var(--glass-border) !important;
-        border-radius: 12px !important;
-        padding: 8px !important;
-        transition: all 0.3s ease !important;
-        cursor: pointer;
-    }
-
-    /* Style for the collapsible menu */
-    .ant-menu{
-        position: static !important; /* Changed from absolute */
-        right: auto !important;
-        width: 100% !important;
-        background: var(--glass-bg) !important;
-        backdrop-filter: blur(20px) !important;
-        border: 1px solid var(--glass-border) !important;
-        border-radius: 0 !important; /* Remove border radius for full width */
-        margin-top: 0 !important;
-        /* Add visibility control */
-        max-height: 0;
-        overflow: hidden;
-        transition: max-height 0.3s ease;
-    }
-
-    /* When menu is open/visible */
-    .ant-menu.ant-menu-open,
-    .ant-menu[style*="display: block"] {
-        max-height: 300px; /* Adjust based on your menu items */
-        border-top: 1px solid var(--glass-border);
-    }
-
-    /* Menu items styling for mobile */
-    .ant-menu-item {
-        padding: 15px 25px !important;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
-        color: white !important;
-    }
-
-    .ant-menu-item:hover {
-        background: rgba(255, 255, 255, 0.1) !important;
-    }
-
-    .home-title{
-        font-size: 1.4rem !important;
-    }
-    .show-more{
-        font-size: 1.3rem !important;
+    .navbar {
+        flex: 0 0 200px;
     }
 }
 
-/* Additional fix for very small screens */
+@media screen and (max-width: 1000px) {
+    .stats-container {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .coin-desc-link {
+        flex-direction: column;
+        gap: 30px;
+    }
+    .stats-container h2 {
+        margin-top: 0px;
+    }
+}
+
+@media screen and (max-width: 800px) {
+    .app {
+        flex-direction: column;
+    }
+
+    .navbar {
+        flex: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%;
+        height: auto;
+        z-index: 1000;
+        box-shadow: 0 2px 20px rgba(0,0,0,0.1);
+    }
+
+    .nav-container {
+        height: auto;
+        position: relative;
+    }
+
+    .logo-container {
+        justify-content: space-between;
+        padding: 15px 25px;
+        min-height: 60px;
+    }
+
+    .logo {
+        font-size: 1.1rem;
+        margin: 0 0 0 10px;
+    }
+
+    .menu-control-container {
+        display: block;
+        position: relative;
+    }
+
+    .main {
+        flex: 1;
+        margin: 70px 10px 10px 10px;
+        border-radius: 20px;
+        min-height: calc(100vh - 80px);
+    }
+
+    .routes {
+        padding: 20px;
+    }
+
+    .home-heading-container {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+
+    .chart-header {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .coin-detail-container {
+        margin: 15px;
+    }
+
+    .coin-heading-container .coin-name {
+        font-size: 2rem;
+    }
+
+    .coin-links {
+        padding: 20px;
+    }
+
+    .crypto-card-container {
+        grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+        gap: 20px;
+        padding: 15px;
+    }
+}
+
 @media screen and (max-width: 500px) {
     .logo-container {
         padding: 10px 15px;
@@ -834,22 +778,29 @@ a:hover{
     
     .logo {
         font-size: 1rem;
-        margin: 0 0 0 10px;
+        margin: 0 0 0 5px;
     }
     
     .menu-control-container {
-        padding: 6px !important;
-        font-size: 1rem !important;
+        padding: 6px;
+        font-size: 1rem;
     }
-}
 
-/* If you're using a hamburger menu, add these classes */
-.mobile-menu-hidden {
-    max-height: 0 !important;
-    overflow: hidden !important;
-}
+    .coin-heading-container .coin-name {
+        font-size: 1.8rem;
+    }
 
-.mobile-menu-visible {
-    max-height: 400px !important;
-    overflow: visible !important;
+    .crypto-card-container {
+        grid-template-columns: 1fr;
+        padding: 10px;
+    }
+
+    .routes {
+        padding: 15px;
+    }
+
+    .home-heading-container {
+        padding: 20px;
+        margin-top: 20px;
+    }
 }
